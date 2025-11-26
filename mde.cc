@@ -1,0 +1,9 @@
+export module mde;
+export import :component;
+export import :header;
+export import :footer;
+export import :editorpane;
+export import :previewpane;
+export import :mde_view;
+export import :mde_control;
+export import :mde_model;
