@@ -27,8 +27,12 @@ CurseKeyboard::CurseKeyboard(const MarkdownEditor &m)
         {'i', INSERT_MODE},
         {'a', APPEND},
         {':', COMMAND_MODE},
-        {'o', NEWLINE}, 
-
+        {'o', NEWLINE},
+        {'O', NEWLINEABV},
+        {'f', FINDF},
+        {'F', FINDB},
+        {';', FINDR},
+        {',', FINDRO},
         {KEY_RESIZE, WRESIZE}
       }} {}
 Action CurseKeyboard::action() {

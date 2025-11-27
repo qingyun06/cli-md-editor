@@ -32,10 +32,16 @@ export enum Command {
 
   REP_LAST_CMD, // .
 
+  FINDF, // f
+  FINDB, // F
+  FINDR, // ;
+  FINDRO, // ,
+
 // INSERT
   INSERT_MODE, // i  
   APPEND, // a
   NEWLINE, // o
+  NEWLINEABV, // O
 
 // COMMAND
   COMMAND_MODE, // :

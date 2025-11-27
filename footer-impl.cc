@@ -13,7 +13,9 @@ void Footer::update() {
     wresize(w, 2, getmaxx(stdscr));
   }
   wborder(w, ' ', ' ', ACS_HLINE, ' ', ACS_HLINE, ACS_HLINE, ' ', ' ');
-  mvwprintw(w, 1, 0, m.getcmdstr().c_str());
+  std::string s = m.getcmdstr();
+  if (s.empty()) return;
+  mvwprintw(w, 1, 0, s.c_str());
 }
 void Footer::display() {
   wrefresh(w);

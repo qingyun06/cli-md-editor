@@ -17,11 +17,13 @@ export class MarkdownEditor : public Model {
   const char *getActiveFileE() const { return filenames[activeFileE]; }
   const char *getActiveFileP() const { return filenames[activeFileP]; }
   const Command &getcmd() const { return cmd; }
+  const std::string &getfindstr() const { return findstr; }
   bool write() const { return cmd == WRITE || cmd == WRITE_QUIT; }
   void run();
 
  private:
   Command cmd;
+  std::string findstr;
   std::string cmdstr;
   int out = 0;
   Mode mode;

@@ -24,24 +24,29 @@ void MarkdownEditor::run() {
     a = getAction();
     if (a.isCommand) {
       switch (a.command) {
+        case NORMAL_MODE:
+          out = 0;
         case INVALID:
           mode = NORMAL; cmdstr = ""; curs_set(1); break;
-        case NORMAL_MODE:
-          mode = NORMAL; cmdstr = ""; out = 0; curs_set(1); break;
         case INSERT_MODE:
-          cmdstr = "--INSERT--"; mode = INSERT; break;
+        case APPEND:
+          cmdstr = "--INSERT--"; mode = INSERT; curs_set(1); break;
+        case NEWLINE:
+        case NEWLINEABV:
+          cmdstr = "--INSERT--"; curs_set(1); break;
         case COMMAND_MODE:
+          curs_set(0); cmdstr = ":"; mode = COMMAND; break;
+        case FINDF:
+          mode = COMMAND; 
           curs_set(0);
-          cmdstr = ":";
+          cmdstr = "f";
+          findstr = "";
+          break;
+        case FINDB:
           mode = COMMAND;
-          break;
-        case CURSOR_LEFT:
-          break;
-        case CURSOR_DOWN:
-          break;
-        case CURSOR_UP:
-          break;
-        case CURSOR_RIGHT:
+          curs_set(0);
+          cmdstr = "F";
+          findstr = "";
           break;
         case WRITE:
           cmdstr = "saved!"; mode = NORMAL; curs_set(1);
@@ -57,8 +62,20 @@ void MarkdownEditor::run() {
       }
       cmd = a.command;
     } else {
-      if (a.keystroke == KEY_BACKSPACE) {
-        if (mode == COMMAND && !cmdstr.empty()) cmdstr.pop_back();
+      if (cmd == FINDF || cmd == FINDB) {
+        findstr = a.keystroke;
+        mode = NORMAL;
+        cmdstr = "";
+        curs_set(1);
+      }
+      else if (a.keystroke == KEY_BACKSPACE) {
+        if (mode == COMMAND && !cmdstr.empty()) {
+          cmdstr.pop_back();
+          if (cmdstr.empty()) {
+            mode = NORMAL;
+            curs_set(1);
+          }
+        }
         else out = KEY_BACKSPACE;
       } else {
         if (mode == COMMAND) cmdstr += a.keystroke;
@@ -67,6 +84,7 @@ void MarkdownEditor::run() {
     }
     updateViews();
     displayViews();
-    cmd = INVALID;
+    // cmd = INVALID;
+    if (cmd == NEWLINE || cmd == NEWLINEABV) mode = INSERT;
   }
 }

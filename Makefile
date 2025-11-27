@@ -15,7 +15,6 @@ OBJECTS = action.o \
 		  mde_control.o \
 		  component.o \
 		  view.o \
-		  cursescreen.o \
 		  editorpane.o \
 		  footer.o \
 		  header.o \
@@ -29,7 +28,6 @@ OBJECTS = action.o \
 		  controller-impl.o \
 		  mde_view-impl.o \
 		  mde_control-impl.o \
-		  cursescreen-impl.o \
 		  editorpane-impl.o \
 		  footer-impl.o \
 		  header-impl.o \
